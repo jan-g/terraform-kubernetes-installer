@@ -51,6 +51,15 @@ resource "oci_core_security_list" "K8SMasterSubnet" {
       protocol = "6"
       source   = "${var.default_https_ingress_cidr}"
     },
+    {
+      tcp_options {
+        "max" = 8080
+        "min" = 8080
+      }
+
+      protocol = "6"
+      source   = "${var.default_https_ingress_cidr}"
+    },
   ]
 
   provisioner "local-exec" {

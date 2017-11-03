@@ -521,3 +521,32 @@ module "instances-docker-registry" {
   subnet_id                  = "${module.subnet-etcd-ad1.id}"
   tenancy_ocid               = "${var.compartment_ocid}"
 }
+
+module "fn-lb" {
+  source                    = "loadbalancers/fnports"
+  compartment_ocid          = "${var.compartment_ocid}"
+  k8sworker_ad1_private_ips = "${module.instances-k8sworker-ad1.private_ips}"
+  k8sworker_ad2_private_ips = "${module.instances-k8sworker-ad2.private_ips}"
+  k8sworker_ad3_private_ips = "${module.instances-k8sworker-ad3.private_ips}"
+  ad1Count                  = "${var.k8sWorkerAd1Count}"
+  ad2Count                  = "${var.k8sWorkerAd2Count}"
+  ad3Count                  = "${var.k8sWorkerAd3Count}"
+  lb_id                     = "${module.k8smaster-public-lb.load_balancer_id}"
+  front_end_port            = 8080
+  back_end_port             = 32180
+}
+
+module "flow-lb" {
+  source                    = "loadbalancers/fnports"
+  compartment_ocid          = "${var.compartment_ocid}"
+  k8sworker_ad1_private_ips = "${module.instances-k8sworker-ad1.private_ips}"
+  k8sworker_ad2_private_ips = "${module.instances-k8sworker-ad2.private_ips}"
+  k8sworker_ad3_private_ips = "${module.instances-k8sworker-ad3.private_ips}"
+  ad1Count                  = "${var.k8sWorkerAd1Count}"
+  ad2Count                  = "${var.k8sWorkerAd2Count}"
+  ad3Count                  = "${var.k8sWorkerAd3Count}"
+  lb_id                     = "${module.etcd-private-lb.load_balancer_id}"
+  front_end_port            = 8081
+  back_end_port             = 32181
+  ping_url                  = "/ping"
+}

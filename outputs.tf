@@ -153,3 +153,11 @@ output "kubeconfig" {
 output "docker_registry_ips" {
   value = "${module.instances-docker-registry.instance_public_ip}"
 }
+
+output "API_URL" {
+  value = "http://${module.k8smaster-public-lb.ip_addresses[0]}:8080"
+}
+
+output "COMPLETER_BASE_URL" {
+  value = "http://${module.etcd-private-lb.ip_addresses[0]}:8081"
+}
