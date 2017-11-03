@@ -56,3 +56,11 @@ variable "api_server_cert_pem" {}
 # etcd
 variable "etcd_discovery_url" {}
 variable "etcd_endpoints" {}
+
+# Trusted registry
+variable "trusted_registry" {}
+
+# Docker device
+variable "docker_device" {
+  default = ""
+}

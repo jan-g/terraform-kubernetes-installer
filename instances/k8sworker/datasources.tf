@@ -21,6 +21,8 @@ data "template_file" "setup-template" {
     k8s_ver            = "${var.k8s_ver}"
     etcd_discovery_url = "${file("${path.root}/generated/discovery${var.etcd_discovery_url}")}"
     etcd_endpoints     = "${var.etcd_endpoints}"
+    trusted_registry   = "${var.trusted_registry}"
+    docker_device      = "${var.docker_device}"
   }
 }
 

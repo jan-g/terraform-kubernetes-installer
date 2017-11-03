@@ -8,11 +8,11 @@ output "hostname_label" {
   value = "${oci_core_instance.TFInstanceDockerRegistry.hostname_label}"
 }
 
-output "private_ips" {
-  value = ["${oci_core_instance.TFInstanceDockerRegistry.private_ip}"]
+output "private_ip" {
+  value = "${oci_core_instance.TFInstanceDockerRegistry.private_ip}"
 }
 
-output "instance_public_ips" {
-  value = ["${oci_core_instance.TFInstanceDockerRegistry.public_ip}"]
+output "instance_public_ip" {
+  value = "${oci_core_instance.TFInstanceDockerRegistry.public_ip}"
 }
  

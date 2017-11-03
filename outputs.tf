@@ -151,5 +151,5 @@ output "kubeconfig" {
 }
 
 output "docker_registry_ips" {
-  value = "${module.instances-docker-registry.instance_public_ips}"
+  value = "${module.instances-docker-registry.instance_public_ip}"
 }

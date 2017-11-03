@@ -387,6 +387,8 @@ module "instances-k8sworker-ad1" {
                                                               module.instances-etcd-ad1.private_ips,
                                                               module.instances-etcd-ad2.private_ips,
                                                               module.instances-etcd-ad3.private_ips)))) }"
+  trusted_registry           = "${module.instances-docker-registry.private_ip}"
+  docker_device              = "${var.worker_docker_device}"
 }
 
 module "instances-k8sworker-ad2" {
@@ -422,6 +424,8 @@ module "instances-k8sworker-ad2" {
                                                               module.instances-etcd-ad1.private_ips,
                                                               module.instances-etcd-ad2.private_ips,
                                                               module.instances-etcd-ad3.private_ips)))) }"
+  trusted_registry           = "${module.instances-docker-registry.private_ip}"
+  docker_device              = "${var.worker_docker_device}"
 }
 
 module "instances-k8sworker-ad3" {
@@ -457,6 +461,8 @@ module "instances-k8sworker-ad3" {
                                                               module.instances-etcd-ad1.private_ips,
                                                               module.instances-etcd-ad2.private_ips,
                                                               module.instances-etcd-ad3.private_ips)))) }"
+  trusted_registry           = "${module.instances-docker-registry.private_ip}"
+  docker_device              = "${var.worker_docker_device}"
 }
 
 ### Load Balancers

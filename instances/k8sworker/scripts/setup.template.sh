@@ -49,15 +49,33 @@ systemctl enable cni-bridge && systemctl start cni-bridge
 
 ## Docker
 ######################################
+if [ -n "${docker_device}" ]; then
+  mkfs -t xfs -L DOCKER ${docker_device}
+  mkdir -p /var/lib/docker
+  cat <<-EOF >>/etc/fstab
+	LABEL=DOCKER /var/lib/docker  xfs     defaults 0 0
+	EOF
+  mount /var/lib/docker
+fi
+
 until yum -y install docker-engine-${docker_ver}; do sleep 1 && echo -n "."; done
 
 cat <<EOF > /etc/sysconfig/docker-network
 DOCKER_NETWORK_OPTIONS="--bridge=cni0 --iptables=false --ip-masq=false"
 EOF
 
+mkdir -p /etc/docker
+cat <<EOF >/etc/docker/daemon.json
+{ "insecure-registries": ["docker-registry:5000"] }
+EOF
+
 systemctl daemon-reload
 systemctl enable docker
 systemctl start docker
+
+cat <<EOF >>/etc/hosts
+${trusted_registry}  docker-registry
+EOF
 
 ## Output /etc/environment_params
 ######################################
