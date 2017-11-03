@@ -149,3 +149,7 @@ output "worker_private_ips" {
 output "kubeconfig" {
   value = "${module.kubeconfig.kubeconfig}"
 }
+
+output "docker_registry_ips" {
+  value = "${module.instances-docker-registry.instance_public_ips}"
+}

@@ -500,3 +500,18 @@ module "kubeconfig" {
 }
 
 
+
+module "instances-docker-registry" {
+  source                     = "instances/docker-registry"
+  availability_domain        = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[0],"name")}"
+  compartment_ocid           = "${var.compartment_ocid}"
+  docker_ver                 = "${var.docker_ver}"
+  display_name               = "docker-registry"
+  hostname_label             = "docker-registry"
+  domain_name                = "${var.domain_name}"
+  oracle_linux_image_name    = "${var.oracle_linux_image_name}"
+  label_prefix               = "${var.label_prefix}"
+  ssh_public_key_openssh     = "${module.k8s-tls.ssh_public_key_openssh}"
+  subnet_id                  = "${module.subnet-etcd-ad1.id}"
+  tenancy_ocid               = "${var.compartment_ocid}"
+}
